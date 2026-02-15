@@ -1,0 +1,9 @@
+---
+
+want_system_tools: yes
+
+system_local_dir: "/usr/local"
+system_local_bin_dir: "{{ system_local_dir }}/bin"
+
+system_tmp_dir: /tmp
+system_tmp_huge_dir: /var/tmp

@@ -1,0 +1,12 @@
+---
+
+want_system_tools_lazygit: yes
+
+# system_tools_lazygit_version:
+
+system_tools_lazygit_github_repo: jesseduffield/lazygit
+system_tools_lazygit_github_api_url: "https://api.github.com/repos/{{ system_tools_lazygit_github_repo }}/releases/latest"
+system_tools_lazygit_github_download_url: "https://github.com/{{ system_tools_lazygit_github_repo }}/releases/latest/download/lazygit_{{ system_tools_lazygit_version }}_{{ ansible_facts.system }}_{{ ansible_facts.architecture }}.tar.gz"
+system_tools_lazygit_local_dir: "{{ system_local_dir }}"
+system_tools_lazygit_local_bin_dir: "{{ system_tools_lazygit_local_dir }}/bin"
+system_tools_lazygit_local_bin: "{{ system_tools_lazygit_local_bin_dir }}/lazygit"

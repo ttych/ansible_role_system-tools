@@ -1,0 +1,8 @@
+---
+
+system_tools_base_packages:
+  - gpg
+  - wget
+  - curl
+  - sysstat
+  - btop

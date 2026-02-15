@@ -1,0 +1,11 @@
+---
+
+- block:
+
+    - name: install shell utils
+      ansible.builtin.package:
+        name: "{{ system_tools_shell_utils_packages }}"
+        state: present
+      become: yes
+
+  when: want_system_tools_shell_utils

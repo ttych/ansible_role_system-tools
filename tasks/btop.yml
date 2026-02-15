@@ -1,0 +1,11 @@
+---
+
+- block:
+
+    - name: install btop
+      ansible.builtin.package:
+        name: "{{ system_tools_btop_package }}"
+        state: present
+      become: yes
+
+  when: want_system_tools_btop

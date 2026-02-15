@@ -1,0 +1,6 @@
+---
+
+want_system_tools_fastfetch: yes
+
+system_tools_fastfetch_package:
+  - fastfetch

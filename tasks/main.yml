@@ -1,0 +1,23 @@
+---
+
+- block:
+
+    - include_tasks: context.yml
+
+    - include_tasks: base.yml
+
+    - include_tasks: btop.yml
+
+    - include_tasks: fastfetch.yml
+
+    - include_tasks: geekbench.yml
+
+    - include_tasks: lazydocker.yml
+
+    - include_tasks: lazygit.yml
+
+    - include_tasks: shell_utils.yml
+
+  when:
+    - want_system_tools
+    - ansible_facts.system in ['Linux']

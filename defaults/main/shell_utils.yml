@@ -1,0 +1,14 @@
+---
+
+want_system_tools_shell_utils: yes
+
+system_tools_shell_utils_packages:
+  - fzf                 # (find) fuzy finder
+  - ripgrep             # (grep)
+  - bat                 # (cat)
+  - eza                 # (ls)
+  - zoxide              # (cd)
+  - plocate             # (locate)
+  - apache2-utils
+  - fd-find             # (find)
+  - tealdeer            # (tldr)

@@ -1,0 +1,11 @@
+---
+
+- block:
+
+    - name: install fastfetch
+      ansible.builtin.package:
+        name: "{{ system_tools_fastfetch_package }}"
+        state: present
+      become: yes
+
+  when: want_system_tools_fastfetch
