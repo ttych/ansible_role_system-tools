@@ -12,6 +12,8 @@
 
     - include_tasks: geekbench.yml
 
+    - include_tasks: geekbench_ai.yml
+
     - include_tasks: lazydocker.yml
 
     - include_tasks: lazygit.yml

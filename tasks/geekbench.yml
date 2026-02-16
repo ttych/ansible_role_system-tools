@@ -31,10 +31,12 @@
 
       when: not t_system_tools_geekbench_bin.stat.exists
 
-    - name: create bin shortcut
+    - name: create geekbench bin shortcut
       ansible.builtin.file:
         src: "{{ system_tools_geekbench_bin }}"
-        dest: "{{ system_tools_geekbench_local_bin_dir }}/{{ system_tools_geekbench_bin_name }}"
+        dest: "{{ system_tools_geekbench_local_bin_dir }}/{{ system_tools_geekbench_shortcut_bin_name }}"
+        owner: root
+        group: root
         state: link
         force: yes
         follow: no
