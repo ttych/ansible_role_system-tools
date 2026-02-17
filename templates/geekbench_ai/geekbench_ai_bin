@@ -1,0 +1,6 @@
+#!/bin/sh
+# -*- mode: sh -*-
+
+cd "{{ system_tools_geekbench_ai_local_dir }}/{{ system_tools_geekbench_ai_archive_name }}" || return 1
+
+"{{ system_tools_geekbench_ai_bin }}" "$@"
