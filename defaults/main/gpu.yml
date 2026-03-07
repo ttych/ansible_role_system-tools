@@ -1,0 +1,12 @@
+---
+
+want_system_tools_gpu: yes
+
+system_tools_gpu_amd_packages:
+  - rocm-smi
+
+system_tools_gpu_nvidia_packages:
+  - nvidia-utils
+
+system_tools_gpu_intel_packages:
+  - intel-gpu-tools

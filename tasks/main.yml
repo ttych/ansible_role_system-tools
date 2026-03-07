@@ -8,6 +8,8 @@
 
     - include_tasks: btop.yml
 
+    - include_tasks: gpu.yml
+
     - include_tasks: fastfetch.yml
 
     - include_tasks: geekbench.yml

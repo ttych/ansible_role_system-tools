@@ -1,0 +1,40 @@
+---
+
+- name: list VGA pci devices
+  ansible.builtin.shell:
+    cmd: lspci | grep -Ei 'vga|3d|display'
+  changed_when: no
+  register: t_system_tools_vga_devices
+
+
+- name: AMD gpu
+  block:
+
+    - name: install AMD gpu utilities
+      ansible.builtin.package:
+        name: "{{ system_tools_gpu_amd_packages }}"
+        state: present
+
+  when: "'AMD' in t_system_tools_vga_devices.stdout"
+
+
+- name: NVidia gpu
+  block:
+
+    - name: install NVidia gpu utilities
+      ansible.builtin.package:
+        name: "{{ system_tools_gpu_nvidia_packages }}"
+        state: present
+
+  when: "'NVIDIA' in t_system_tools_vga_devices.stdout"
+
+
+- name: Intel gpu
+  block:
+
+    - name: install Intel gpu utilities
+      ansible.builtin.package:
+        name: "{{ system_tools_gpu_intel_packages }}"
+        state: present
+
+  when: "'Intel' in t_system_tools_vga_devices.stdout"
