@@ -26,6 +26,8 @@
 
     - include_tasks: shell_utils.yml
 
+    - include_tasks: mise.yml
+
   when:
     - want_system_tools
     - ansible_facts.system in ['Linux']

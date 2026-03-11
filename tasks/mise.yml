@@ -1,0 +1,69 @@
+---
+
+- block:
+
+    - name: check current mise
+      ansible.builtin.stat:
+        path: "{{ system_tools_mise_local_bin }}"
+      register: t_system_tools_mise_local_bin
+
+    - block:
+
+        - name: get latest mise version from GitHub API
+          ansible.builtin.uri:
+            url: "{{ system_tools_mise_github_api_url }}"
+            return_content: yes
+          register: t_system_tools_mise_github_latest_release
+          changed_when: no
+
+        - name: extract latest mise version
+          ansible.builtin.set_fact:
+            system_tools_mise_version: "{{ (t_system_tools_mise_github_latest_release.content | from_json).tag_name | replace('v', '') }}"
+
+      when: system_tools_mise_version is not defined or system_tools_mise_version == ""
+
+    - block:
+
+        - name: get current mise version
+          ansible.builtin.shell:
+            cmd: "{{ system_tools_mise_local_bin }} --version | sed -e 's/^\\([0-9][^ ]*\\) .*/\\1/g'"
+          register: t_system_tools_mise_current_version
+          changed_when: no
+
+      when: t_system_tools_mise_local_bin.stat.exists
+
+    - block:
+
+        - name: download mise archive
+          ansible.builtin.get_url:
+            url: "{{ system_tools_mise_github_download_url }}"
+            dest: "{{ system_tools_tmp_dir }}/mise.tar.gz"
+            mode: '0644'
+
+        - name: extract mise archive
+          ansible.builtin.unarchive:
+            src: "{{ system_tools_tmp_dir }}/mise.tar.gz"
+            dest: "{{ system_tools_tmp_dir }}"
+            remote_src: yes
+            creates: "{{ system_tools_tmp_dir }}/{{ system_tools_mise_name }}"
+
+        - name: "install mise binary to {{ system_tools_mise_local_bin }}"
+          ansible.builtin.copy:
+            src: "{{ system_tools_tmp_dir }}/{{ system_tools_mise_name }}/bin/{{ system_tools_mise_name }}"
+            dest: "{{ system_tools_mise_local_bin }}"
+            mode: '0755'
+            owner: root
+            group: root
+            remote_src: yes
+
+        - name: clean up temporary files
+          ansible.builtin.file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - "{{ system_tools_tmp_dir }}/mise.tar.gz"
+            - "{{ system_tools_tmp_dir }}/{{ system_tools_mise_name }}"
+
+      when: not t_system_tools_mise_local_bin.stat.exists or (t_system_tools_mise_current_version is defined and t_system_tools_mise_current_version.stdout != system_tools_mise_version)
+
+  when: want_system_tools_mise
