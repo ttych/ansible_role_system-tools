@@ -22,6 +22,8 @@
 
     - include_tasks: docker_dive.yml
 
+    - include_tasks: k9s.yml
+
     - include_tasks: shell_utils.yml
 
   when:
