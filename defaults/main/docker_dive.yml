@@ -4,9 +4,10 @@ want_system_tools_docker_dive: yes
 
 # system_tools_docker_dive_version:
 
+system_tools_docker_dive_name: dive
 system_tools_docker_dive_github_repo: wagoodman/dive
 system_tools_docker_dive_github_api_url: "https://api.github.com/repos/{{ system_tools_docker_dive_github_repo }}/releases/latest"
-system_tools_docker_dive_github_download_url: "https://github.com/{{ system_tools_docker_dive_github_repo }}/releases/download/v{{ system_tools_docker_dive_version }}/dive_{{ system_tools_docker_dive_version }}_{{ ansible_facts.system | lower }}_{{ system_architecture_alt[ansible_facts.architecture] }}.tar.gz"
+system_tools_docker_dive_github_download_url: "https://github.com/{{ system_tools_docker_dive_github_repo }}/releases/download/v{{ system_tools_docker_dive_version }}/{{ system_tools_docker_dive_name }}_{{ system_tools_docker_dive_version }}_{{ ansible_facts.system | lower }}_{{ system_architecture_alt[ansible_facts.architecture] }}.tar.gz"
 system_tools_docker_dive_local_dir: "{{ system_local_dir }}"
 system_tools_docker_dive_local_bin_dir: "{{ system_tools_docker_dive_local_dir }}/bin"
-system_tools_docker_dive_local_bin: "{{ system_tools_docker_dive_local_bin_dir }}/dive"
+system_tools_docker_dive_local_bin: "{{ system_tools_docker_dive_local_bin_dir }}/{{ system_tools_docker_dive_name }}"

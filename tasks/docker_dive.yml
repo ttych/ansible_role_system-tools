@@ -45,11 +45,11 @@
             src: "{{ system_tmp_dir }}/docker_dive.tar.gz"
             dest: "{{ system_tmp_dir }}"
             remote_src: yes
-            creates: "{{ system_tmp_dir }}/dive"
+            creates: "{{ system_tmp_dir }}/{{ system_tools_docker_dive_name }}"
 
         - name: "install docker_dive binary to {{ system_tools_docker_dive_local_bin }}"
           ansible.builtin.copy:
-            src: "{{ system_tmp_dir }}/dive"
+            src: "{{ system_tmp_dir }}/{{ system_tools_docker_dive_name }}"
             dest: "{{ system_tools_docker_dive_local_bin }}"
             mode: '0755'
             owner: root
@@ -62,8 +62,9 @@
             state: absent
           loop:
             - "{{ system_tmp_dir }}/docker_dive.tar.gz"
-            - "{{ system_tmp_dir }}/dive"
+            - "{{ system_tmp_dir }}/{{ system_tools_docker_dive_name }}"
             - "{{ system_tmp_dir }}/README.md"
+            - "{{ system_tmp_dir }}/CHANGELOG.md"
             - "{{ system_tmp_dir }}/LICENSE"
 
       when: not t_system_tools_docker_dive_local_bin.stat.exists or (t_system_tools_docker_dive_current_version is defined and t_system_tools_docker_dive_current_version.stdout != system_tools_docker_dive_version)
