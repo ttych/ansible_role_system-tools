@@ -10,7 +10,7 @@ system_tools_kubectl_local_bin_dir: "{{ system_tools_kubectl_local_dir }}/bin"
 
 system_tools_kubectl_name: kubectl
 system_tools_kubectl_local_bin: "{{ system_tools_kubectl_local_bin_dir }}/{{ system_tools_kubectl_name }}"
-system_tools_kubectl_download_url: "https://dl.k8s.io/release/v{{ system_tools_kubectl_version }}/bin/{{ ansible_facts.system | lower }}/{{ system_architecture_alt[ansible_facts.architecture] }}/kubectl"
+system_tools_kubectl_download_url: "https://dl.k8s.io/release/v{{ system_tools_kubectl_version }}/bin/{{ ansible_facts.system | lower }}/{{ system_architecture_alt[ansible_facts.architecture] }}/{{ system_tools_kubectl_name }}"
 
 system_tools_kubectl_convert_name: kubectl-convert
 system_tools_kubectl_convert_local_bin: "{{ system_tools_kubectl_local_bin_dir }}/{{ system_tools_kubectl_convert_name }}"
