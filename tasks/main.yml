@@ -24,6 +24,8 @@
 
     - include_tasks: k9s.yml
 
+    - include_tasks: kubectl.yml
+
     - include_tasks: shell_utils.yml
 
     - include_tasks: mise.yml
