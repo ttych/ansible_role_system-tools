@@ -1,0 +1,76 @@
+---
+
+- block:
+
+    - name: check current helm
+      ansible.builtin.stat:
+        path: "{{ system_tools_helm_local_bin }}"
+      register: t_system_tools_helm_local_bin
+
+    - block:
+
+        - name: get latest helm version from GitHub API
+          ansible.builtin.uri:
+            url: "{{ system_tools_helm_github_api_url }}"
+            return_content: yes
+          register: t_system_tools_helm_github_latest_release
+          changed_when: no
+
+        - name: extract latest helm version
+          ansible.builtin.set_fact:
+            system_tools_helm_version: "{{ (t_system_tools_helm_github_latest_release.content | from_json).tag_name | replace('v', '') }}"
+
+      when: system_tools_helm_version is not defined or system_tools_helm_version == ""
+
+    - block:
+
+        - name: get current helm version
+          ansible.builtin.shell:
+            cmd: "{{ system_tools_helm_local_bin }} version | sed -e 's/^.*\\bVersion:\"v\\([0-9.]*\\)\".*/\\1/g'"
+          register: t_system_tools_helm_current_version
+          changed_when: no
+
+      when: t_system_tools_helm_local_bin.stat.exists
+
+    # - debug:
+    #     msg: "latest:{{ system_tools_helm_version }}  -  current:{{ t_system_tools_helm_current_version.stdout | d('') }}"
+
+    - block:
+
+        - name: download helm archive
+          ansible.builtin.get_url:
+            url: "{{ system_tools_helm_github_download_url }}"
+            dest: "{{ system_tmp_dir }}/helm.tar.gz"
+            mode: '0644'
+
+        - name: extract helm archive
+          ansible.builtin.unarchive:
+            src: "{{ system_tmp_dir }}/helm.tar.gz"
+            dest: "{{ system_tmp_dir }}"
+            remote_src: yes
+            creates: "{{ system_tmp_dir }}/{{ system_tools_helm_name }}"
+
+        - name: "install helm binary to {{ system_tools_helm_local_bin }}"
+          ansible.builtin.copy:
+            src: "{{ system_tmp_dir }}/{{ ansible_facts.system | lower }}-{{ system_architecture_alt[ansible_facts.architecture] }}/{{ system_tools_helm_name }}"
+            dest: "{{ system_tools_helm_local_bin }}"
+            mode: '0755'
+            owner: root
+            group: root
+            remote_src: yes
+
+        - name: clean up temporary files
+          ansible.builtin.file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - "{{ system_tmp_dir }}/helm.tar.gz"
+            - "{{ system_tmp_dir }}/{{ system_tools_helm_name }}"
+            - "{{ system_tmp_dir }}/{{ ansible_facts.system | lower }}-{{ system_architecture_alt[ansible_facts.architecture] }}"
+            - "{{ system_tmp_dir }}/README.md"
+            - "{{ system_tmp_dir }}/CHANGELOG.md"
+            - "{{ system_tmp_dir }}/LICENSE"
+
+      when: not t_system_tools_helm_local_bin.stat.exists or (t_system_tools_helm_current_version is defined and t_system_tools_helm_current_version.stdout != system_tools_helm_version)
+
+  when: want_system_tools_helm

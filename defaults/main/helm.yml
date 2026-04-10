@@ -1,0 +1,13 @@
+---
+
+want_system_tools_helm: yes
+
+# system_tools_helm_version:
+
+system_tools_helm_name: helm
+system_tools_helm_github_repo: helm/helm
+system_tools_helm_github_api_url: "https://api.github.com/repos/{{ system_tools_helm_github_repo }}/releases/latest"
+system_tools_helm_github_download_url: "https://get.helm.sh/{{ system_tools_helm_name }}-v{{ system_tools_helm_version }}-{{ ansible_facts.system | lower }}-{{ system_architecture_alt[ansible_facts.architecture] }}.tar.gz"
+system_tools_helm_local_dir: "{{ system_local_dir }}"
+system_tools_helm_local_bin_dir: "{{ system_tools_helm_local_dir }}/bin"
+system_tools_helm_local_bin: "{{ system_tools_helm_local_bin_dir }}/{{ system_tools_helm_name }}"
