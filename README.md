@@ -16,6 +16,8 @@ Deploy important system tools.
 
 ### gh
 
+### gum
+
 ### helm
 
 ### lazydocker

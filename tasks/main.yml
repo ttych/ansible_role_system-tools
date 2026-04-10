@@ -16,6 +16,10 @@
 
     - include_tasks: geekbench_ai.yml
 
+    - include_tasks: gh.yml
+
+    - include_tasks: gum.yml
+
     - include_tasks: helm.yml
 
     - include_tasks: lazydocker.yml

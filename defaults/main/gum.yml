@@ -1,0 +1,6 @@
+---
+
+want_system_tools_gum: yes
+
+system_tools_gum_packages:
+  - gum

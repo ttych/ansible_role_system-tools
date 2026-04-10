@@ -1,0 +1,10 @@
+---
+
+want_system_tools_gh: yes
+
+system_tools_gh_packages:
+  - gh
+
+system_tools_gh_github_repository_name: github-cli
+system_tools_gh_github_repository_url: https://cli.github.com/packages
+system_tools_gh_github_repository_keyring_url: https://cli.github.com/packages/githubcli-archive-keyring.gpg

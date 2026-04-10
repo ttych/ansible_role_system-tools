@@ -1,0 +1,21 @@
+---
+
+- block:
+
+    - name: Add github cli repository using key from URL
+      ansible.builtin.deb822_repository:
+        name: "{{ system_tools_gh_github_repository_name }}"
+        types: deb
+        uris: "{{ system_tools_gh_github_repository_url }}"
+        suites: stable
+        components: main
+        architectures: amd64,arm64,armhf
+        signed_by: "{{ system_tools_gh_github_repository_keyring_url }}"
+
+    - name: install gh
+      ansible.builtin.package:
+        name: "{{ system_tools_gh_packages }}"
+        state: latest
+        update_cache: yes
+
+  when: want_system_tools_gh
