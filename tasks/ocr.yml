@@ -1,0 +1,10 @@
+---
+
+- block:
+
+    - name: install ocr packages
+      ansible.builtin.package:
+        name: "{{ system_tools_ocr_packages }}"
+        state: present
+
+  when: want_system_tools_ocr

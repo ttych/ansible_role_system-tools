@@ -1,0 +1,9 @@
+---
+
+want_system_tools_ocr: yes
+
+system_tools_ocr_packages:
+  - tesseract-ocr
+  - tesseract-ocr-eng
+  - tesseract-ocr-fra
+  - tesseract-ocr-frm

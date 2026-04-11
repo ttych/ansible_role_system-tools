@@ -32,6 +32,8 @@
 
     - include_tasks: kubectl.yml
 
+    - include_tasks: ocr.yml
+
     - include_tasks: shell_utils.yml
 
     - include_tasks: mise.yml
