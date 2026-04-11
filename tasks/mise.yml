@@ -37,19 +37,19 @@
         - name: download mise archive
           ansible.builtin.get_url:
             url: "{{ system_tools_mise_github_download_url }}"
-            dest: "{{ system_tools_tmp_dir }}/mise.tar.gz"
+            dest: "{{ system_tmp_dir }}/mise.tar.gz"
             mode: '0644'
 
         - name: extract mise archive
           ansible.builtin.unarchive:
-            src: "{{ system_tools_tmp_dir }}/mise.tar.gz"
-            dest: "{{ system_tools_tmp_dir }}"
+            src: "{{ system_tmp_dir }}/mise.tar.gz"
+            dest: "{{ system_tmp_dir }}"
             remote_src: yes
-            creates: "{{ system_tools_tmp_dir }}/{{ system_tools_mise_name }}"
+            creates: "{{ system_tmp_dir }}/{{ system_tools_mise_name }}"
 
         - name: "install mise binary to {{ system_tools_mise_local_bin }}"
           ansible.builtin.copy:
-            src: "{{ system_tools_tmp_dir }}/{{ system_tools_mise_name }}/bin/{{ system_tools_mise_name }}"
+            src: "{{ system_tmp_dir }}/{{ system_tools_mise_name }}/bin/{{ system_tools_mise_name }}"
             dest: "{{ system_tools_mise_local_bin }}"
             mode: '0755'
             owner: root
@@ -61,8 +61,8 @@
             path: "{{ item }}"
             state: absent
           loop:
-            - "{{ system_tools_tmp_dir }}/mise.tar.gz"
-            - "{{ system_tools_tmp_dir }}/{{ system_tools_mise_name }}"
+            - "{{ system_tmp_dir }}/mise.tar.gz"
+            - "{{ system_tmp_dir }}/{{ system_tools_mise_name }}"
 
       when: not t_system_tools_mise_local_bin.stat.exists or (t_system_tools_mise_current_version is defined and t_system_tools_mise_current_version.stdout != system_tools_mise_version)
 
