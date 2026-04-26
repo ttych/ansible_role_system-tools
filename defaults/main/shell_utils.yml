@@ -13,3 +13,4 @@ system_tools_shell_utils_packages:
   - fd-find             # (find)
   - tealdeer            # (tldr)
   - hyperfine           # (benchmark)
+  - dysk                # (df)
