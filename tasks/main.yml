@@ -40,6 +40,8 @@
 
     - include_tasks: shellcheck.yml
 
+    - include_tasks: uv.yml
+
   when:
     - want_system_tools
     - ansible_facts.system in ['Linux']

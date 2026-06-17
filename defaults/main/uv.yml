@@ -1,0 +1,19 @@
+---
+
+want_system_tools_uv: yes
+
+# system_tools_uv_version:
+
+system_tools_uv_name: uv
+system_tools_uv_github_repo: astral-sh/uv
+system_tools_uv_github_api_url: "https://api.github.com/repos/{{ system_tools_uv_github_repo }}/releases/latest"
+# system_tools_uv_github_download_url: "https://github.com/{{ system_tools_uv_github_repo }}/releases/{{ system_tools_uv_version }}/download/{{ system_tools_uv_name }}-{{ ansible_facts.architecture }}-unknown-{{ ansible_facts.system | lower }}-gnu.tar.gz"
+system_tools_uv_github_archive_name: "{{ system_tools_uv_name }}-{{ ansible_facts.architecture }}-unknown-{{ ansible_facts.system | lower }}-gnu"
+system_tools_uv_github_archive: "{{ system_tools_uv_github_archive_name }}.tar.gz"
+system_tools_uv_github_download_url: "https://github.com/{{ system_tools_uv_github_repo }}/releases/download/{{ system_tools_uv_version }}/{{ system_tools_uv_github_archive }}"
+system_tools_uv_local_dir: "{{ system_local_dir }}"
+system_tools_uv_local_bin_dir: "{{ system_tools_uv_local_dir }}/bin"
+system_tools_uv_local_bin: "{{ system_tools_uv_local_bin_dir }}/{{ system_tools_uv_name }}"
+
+system_tools_uvx_name: uvx
+system_tools_uvx_local_bin: "{{ system_tools_uv_local_bin_dir }}/{{ system_tools_uvx_name }}"
