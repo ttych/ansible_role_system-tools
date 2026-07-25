@@ -7,7 +7,7 @@ want_system_tools_shellcheck: yes
 system_tools_shellcheck_name: shellcheck
 system_tools_shellcheck_github_repo: koalaman/shellcheck
 system_tools_shellcheck_github_api_latest_url: "https://api.github.com/repos/{{ system_tools_shellcheck_github_repo }}/releases/latest"
-system_tools_shellcheck_github_download_url: "https://github.com/{{ system_tools_shellcheck_github_repo }}/releases/{{ system_tools_shellcheck_version }}/download/{{ system_tools_shellcheck_name }}-v{{ system_tools_shellcheck_version }}.{{ ansible_facts.system | lower }}.{{ ansible_facts.architecture }}.tar.xz"
+system_tools_shellcheck_github_download_url: "https://github.com/{{ system_tools_shellcheck_github_repo }}/releases/download/v{{ system_tools_shellcheck_version }}/{{ system_tools_shellcheck_name }}-v{{ system_tools_shellcheck_version }}.{{ ansible_facts.system | lower }}.{{ ansible_facts.architecture }}.tar.xz"
 system_tools_shellcheck_local_dir: "{{ system_local_dir }}"
 system_tools_shellcheck_local_bin_dir: "{{ system_tools_shellcheck_local_dir }}/bin"
 system_tools_shellcheck_local_bin: "{{ system_tools_shellcheck_local_bin_dir }}/{{ system_tools_shellcheck_name }}"
